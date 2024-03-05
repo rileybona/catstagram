@@ -1,0 +1,13 @@
+h1 {
+  padding: 20px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+}
+
+.new-cat-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
