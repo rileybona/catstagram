@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap');
-
+body {
+  background-image: url("./img/grettasWallpaper.jpeg");
+}
 h1 {
   padding: 20px 0px;
   display: flex;
