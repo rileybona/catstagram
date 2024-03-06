@@ -20,3 +20,25 @@ h1 {
 .image-itself {
   border: 10px ridge #ca8138;
 }
+
+.cat-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0px;
+}
+
+.great-div-container {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.score-container {
+  border: 5px solid #ca8138;
+}
+
+.big-comment-container {
+  border: 5px solid black
+}
