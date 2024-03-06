@@ -72,17 +72,21 @@ window.onload = async () => {
   const textInput = document.createElement('input')
   textInput.type = 'text'
   textInput.placeholder = 'Add a comment...'
+  textInput.setAttribute('id', 'comment-text')
 
   const submitButton = document.createElement('button')
   submitButton.type = 'submit'
   submitButton.innerText = 'Submit'
+  submitButton.setAttribute('id', 'submit-button-itself')
 
   innerCommentContainer.append(commentTitle, textInput, submitButton)
 
   //outer div with commenting area and comment viewing
   const commentSection = document.createElement('ul')
   const commentSectionDiv = document.createElement('div')
+
   commentSectionDiv.setAttribute('class', 'comment-section-div')
+  commentSection.setAttribute('id', 'ul-comments')
   commentSectionDiv.appendChild(commentSection)
   bigCommentContainer.append(innerCommentContainer, commentSectionDiv)
 
@@ -93,58 +97,66 @@ window.onload = async () => {
 
 
 //appending to page
-document.body.append(greatDivContainer)
+  document.body.append(greatDivContainer)
+
+    // attempt at image regeneration
+  const catButtonSelector = document.querySelector("#cat-button-itself");
+
+  catButtonSelector.addEventListener('click', async (e) => {
+    e.preventDefault()
+    const prevImage = document.querySelector('.image-itself')
+    const newCat = document.querySelector('.new-cat-container')
+    prevImage.remove(e)
+
+    console.log(newCat)
+
+    try {
+          const res = await fetch('https://api.thecatapi.com/v1/images/search?size=small')
+          const data = await res.json();
+
+          console.log(data)
+          const link = data[0].url
+          console.log(link)
+
+          const newImage = document.createElement('img')
+
+          newImage.setAttribute('class', 'image-itself')
+          newImage.src = link
+          newCat.appendChild(newImage)
+          newCat.setAttribute('class', 'new-cat-container')
+
+        } catch (e) {
+          window.alert("Couldn't fetch cat :(")
+        }
+  });
 
 
-//  UP VOTE !
-const upVoteSelector = document.querySelector("#upVoteButton");
-console.log(upVoteSelector);
+  //  UP VOTE !
+  const upVoteSelector = document.querySelector("#upVoteButton");
+  console.log(upVoteSelector);
 
-upVoteSelector.addEventListener('click', (e) => {
-  // console.log("hello");
-  // console.log("score1: " + score)
-  score++;
-  // console.log("score2: " + score)
-  scoreP.innerText = `Popularity Score: ${score}`
-});
+  upVoteSelector.addEventListener('click', (e) => {
+    // console.log("hello");
+    // console.log("score1: " + score)
+    score++;
+    // console.log("score2: " + score)
+    scoreP.innerText = `Popularity Score: ${score}`
+  });
 
-// DOWN VOTE !
-const downVoteSelector = document.querySelector("#downVoteButton");
-downVoteSelector.addEventListener('click', (e) => {
-  score--;
-  scoreP.innerText = `Popularity Score: ${score}`;
-})
+  // DOWN VOTE !
+  const downVoteSelector = document.querySelector("#downVoteButton");
+  downVoteSelector.addEventListener('click', (e) => {
+    score--;
+    scoreP.innerText = `Popularity Score: ${score}`;
+  })
 
+  //Comment Section Functionality
+  const commentText = document.querySelector('#comment-text')
+  const submit = document.querySelector('#submit-button-itself')
 
-
+  submit.addEventListener('click', () => {
+    const li = document.createElement('li')
+    li.innerText = commentText.value;
+    commentSection.appendChild(li)
+  })
 }
-
-window.addEventListener('DOMContentLoaded', () => {
-  console.log("DOM cntent working")
-  // attempt at image regeneration
-  // const catButtonSelector = document.getElementById("cat-button-itself");
-  // const changeCatImg = async () => {
-  //   try {
-  //     const newRes = await fetch('https://api.thecatapi.com/v1/images/search?size=small');
-  //     const newData = await newRes.json();
-
-  //     console.log(newData)
-  //     console.log("testing new cat button");
-  //     const newLink = newData[0].url;
-  //     // console.log(link)
-  //     newImage.src = newLink;
-
-  //   } catch (e) {
-  //     window.alert("Couldn't fetch cat :(")
-  //   }
-  // }
-
-  // catButtonSelector.addEventListener('click', changeCatImg);
-  // we'll have to add a function to reset comments and votes as well
-
-  //  POPULARITY VOTE FUNCTIONALITY
-  // const upVoteSelector = document.getElementById('upVoteButton');
-
-
-
-})
