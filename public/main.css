@@ -15,6 +15,7 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 15px;
 }
 
 .image-itself {
@@ -26,19 +27,52 @@ h1 {
   justify-content: center;
   align-items: center;
   padding: 10px 0px;
+  margin-bottom: 15px;
 }
 
 .great-div-container {
   display: flex;
   flex-direction: row-reverse;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+/* score section  */
+.score-container {
+  border: 2px solid #ca8138;
+  background-color: #9393c444;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.score-container button {
+  margin: 5px;
+}
+
+/*  comment section */
+.big-comment-container {
+  width: 40%;
+  /* border: 5px solid black; */
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #ca8138;
+  background-color: #9393c444;
+  padding: 5px;
+}
+
+.inner-comment-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  max-height: 30px;
   align-items: center;
 }
 
-.score-container {
-  border: 5px solid #ca8138;
-}
-
-.big-comment-container {
-  border: 5px solid black
+.comment-section-div {
+  border: 2px solid black;
+  margin: 5px;
+  background-color: white;
+  padding: 5px;
+  padding-bottom: 20px;
 }

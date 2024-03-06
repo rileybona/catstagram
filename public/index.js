@@ -1,3 +1,4 @@
+
 window.onload = async () => {
 // Header
   const h1Ele = document.createElement('h1')
@@ -33,23 +34,28 @@ window.onload = async () => {
   const newCatDiv = document.createElement('div')
   newCatDiv.setAttribute('class', 'cat-button-container')
 
-  newCatButton.innerText = 'Fetch me a new cat image'
+  newCatButton.innerText = 'New Cat, Please!'
   newCatButton.setAttribute('id', 'cat-button-itself')
   newCatDiv.appendChild(newCatButton)
   document.body.append(newCatDiv)
 
 // div with popularity score
-  let score = 0
+  let score = 0;
+
   const newScoreDiv = document.createElement('div')
   newScoreDiv.setAttribute('class', 'score-container')
 
   const scoreP = document.createElement('p')
+  scoreP.name = 'scoreP';
   scoreP.innerText = `Popularity Score: ${score}`
 
   const upVoteButton = document.createElement('button')
   upVoteButton.innerText = 'Upvote'
+  upVoteButton.setAttribute('id', 'upVoteButton')
+  upVoteButton.target = 'scoreP';
   const downVoteButton = document.createElement('button')
   downVoteButton.innerText = 'Downvote'
+  downVoteButton.setAttribute('id', 'downVoteButton')
 
   newScoreDiv.append(scoreP, upVoteButton, downVoteButton)
 
@@ -88,19 +94,56 @@ window.onload = async () => {
 
 //appending to page
 document.body.append(greatDivContainer)
+
+
+//  UP VOTE !
+const upVoteSelector = document.querySelector("#upVoteButton");
+console.log(upVoteSelector);
+
+upVoteSelector.addEventListener('click', (e) => {
+  // console.log("hello");
+  // console.log("score1: " + score)
+  score++;
+  // console.log("score2: " + score)
+  scoreP.innerText = `Popularity Score: ${score}`
+});
+
+// DOWN VOTE !
+const downVoteSelector = document.querySelector("#downVoteButton");
+downVoteSelector.addEventListener('click', (e) => {
+  score--;
+  scoreP.innerText = `Popularity Score: ${score}`;
+})
+
+
+
 }
 
 window.addEventListener('DOMContentLoaded', () => {
+  console.log("DOM cntent working")
+  // attempt at image regeneration
+  // const catButtonSelector = document.getElementById("cat-button-itself");
+  // const changeCatImg = async () => {
+  //   try {
+  //     const newRes = await fetch('https://api.thecatapi.com/v1/images/search?size=small');
+  //     const newData = await newRes.json();
 
+  //     console.log(newData)
+  //     console.log("testing new cat button");
+  //     const newLink = newData[0].url;
+  //     // console.log(link)
+  //     newImage.src = newLink;
 
+  //   } catch (e) {
+  //     window.alert("Couldn't fetch cat :(")
+  //   }
+  // }
 
+  // catButtonSelector.addEventListener('click', changeCatImg);
+  // we'll have to add a function to reset comments and votes as well
 
-
-
-
-
-
-
+  //  POPULARITY VOTE FUNCTIONALITY
+  // const upVoteSelector = document.getElementById('upVoteButton');
 
 
 
