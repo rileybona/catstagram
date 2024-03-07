@@ -38,6 +38,23 @@ h1 {
   gap: 20px;
 }
 
+#cat-button-itself {
+  background-color: lavender;
+  padding: 5px 10px;
+  font-family: Amatic SC;
+  font-weight: bolder;
+  font-size: 25px;
+  transition-duration: 0.2s;
+  border: none;
+  box-shadow: 2px 2px 3px black;
+  border-radius: 50px;
+}
+
+#cat-button-itself:hover {
+  background-color: darkorchid;
+  color: white;
+}
+
 /* score section  */
 .score-container {
   border: 2px solid #ca8138;
@@ -48,6 +65,23 @@ h1 {
 }
 .score-container button {
   margin: 5px;
+  font-family: Amatic SC;
+  font-weight: bolder;
+  padding: 5px 10px;
+  font-size: 25px;
+  border-radius: 50px;
+  background-color: #ffe2d0;
+  border: none;
+  box-shadow: 2px 2px 3px black;
+  transition-duration: 0.2s;
+}
+
+#upVoteButton:hover {
+  background-color: rgb(122, 204, 122);
+}
+
+#downVoteButton:hover {
+  background-color: rgb(251, 125, 125);
 }
 
 /*  comment section */

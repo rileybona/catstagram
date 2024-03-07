@@ -34,7 +34,7 @@ window.onload = async () => {
   const newCatDiv = document.createElement('div')
   newCatDiv.setAttribute('class', 'cat-button-container')
 
-  newCatButton.innerText = 'New Cat, Please!'
+  newCatButton.innerText = 'New Cat, Please! 🐱'
   newCatButton.setAttribute('id', 'cat-button-itself')
   newCatDiv.appendChild(newCatButton)
   document.body.append(newCatDiv)
@@ -50,11 +50,11 @@ window.onload = async () => {
   scoreP.innerText = `Popularity Score: ${score}`
 
   const upVoteButton = document.createElement('button')
-  upVoteButton.innerText = 'Upvote'
+  upVoteButton.innerText = 'Upvote ⬆️'
   upVoteButton.setAttribute('id', 'upVoteButton')
   upVoteButton.target = 'scoreP';
   const downVoteButton = document.createElement('button')
-  downVoteButton.innerText = 'Downvote'
+  downVoteButton.innerText = 'Downvote ⬇️'
   downVoteButton.setAttribute('id', 'downVoteButton')
 
   newScoreDiv.append(scoreP, upVoteButton, downVoteButton)
@@ -99,7 +99,37 @@ window.onload = async () => {
 //appending to page
   document.body.append(greatDivContainer)
 
-    // attempt at image regeneration
+  //  UP VOTE !
+  const upVoteSelector = document.querySelector("#upVoteButton");
+  console.log(upVoteSelector);
+
+  upVoteSelector.addEventListener('click', (e) => {
+    // console.log("hello");
+    // console.log("score1: " + score)
+    score++;
+    // console.log("score2: " + score)
+    scoreP.innerText = `Popularity Score: ${score}`
+  });
+
+  // DOWN VOTE !
+  const downVoteSelector = document.querySelector("#downVoteButton");
+  downVoteSelector.addEventListener('click', (e) => {
+    score--;
+    scoreP.innerText = `Popularity Score: ${score}`;
+  })
+
+  //Comment Section Functionality
+  const commentText = document.querySelector('#comment-text')
+  const submit = document.querySelector('#submit-button-itself')
+
+  submit.addEventListener('click', () => {
+    const li = document.createElement('li')
+    li.innerText = commentText.value;
+    commentSection.appendChild(li)
+    commentText.value = ''
+  })
+
+  // attempt at image regeneration
   const catButtonSelector = document.querySelector("#cat-button-itself");
 
   catButtonSelector.addEventListener('click', async (e) => {
@@ -128,35 +158,12 @@ window.onload = async () => {
         } catch (e) {
           window.alert("Couldn't fetch cat :(")
         }
-  });
-
-
-  //  UP VOTE !
-  const upVoteSelector = document.querySelector("#upVoteButton");
-  console.log(upVoteSelector);
-
-  upVoteSelector.addEventListener('click', (e) => {
-    // console.log("hello");
-    // console.log("score1: " + score)
-    score++;
-    // console.log("score2: " + score)
+    //reset score and comments
+    score = 0;
     scoreP.innerText = `Popularity Score: ${score}`
+
+    while (commentSection.firstChild) {
+      commentSection.removeChild(commentSection.lastChild);
+    }
   });
-
-  // DOWN VOTE !
-  const downVoteSelector = document.querySelector("#downVoteButton");
-  downVoteSelector.addEventListener('click', (e) => {
-    score--;
-    scoreP.innerText = `Popularity Score: ${score}`;
-  })
-
-  //Comment Section Functionality
-  const commentText = document.querySelector('#comment-text')
-  const submit = document.querySelector('#submit-button-itself')
-
-  submit.addEventListener('click', () => {
-    const li = document.createElement('li')
-    li.innerText = commentText.value;
-    commentSection.appendChild(li)
-  })
 }
