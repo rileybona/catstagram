@@ -20,6 +20,10 @@ window.onload = async () => {
 
     newImage.setAttribute('class', 'image-itself')
     newImage.src = link
+
+    //store image
+    window.localStorage.setItem('image', newImage)
+
     newCat.appendChild(newImage)
     newCat.setAttribute('class', 'new-cat-container')
 
@@ -41,6 +45,10 @@ window.onload = async () => {
 
 // div with popularity score
   let score = 0;
+  const savedScore = window.localStorage.getItem('score')
+  if (savedScore){
+    score = savedScore;
+  }
 
   const newScoreDiv = document.createElement('div')
   newScoreDiv.setAttribute('class', 'score-container')
@@ -52,7 +60,8 @@ window.onload = async () => {
   const upVoteButton = document.createElement('button')
   upVoteButton.innerText = 'Upvote ⬆️'
   upVoteButton.setAttribute('id', 'upVoteButton')
-  upVoteButton.target = 'scoreP';
+
+
   const downVoteButton = document.createElement('button')
   downVoteButton.innerText = 'Downvote ⬇️'
   downVoteButton.setAttribute('id', 'downVoteButton')
@@ -84,10 +93,26 @@ window.onload = async () => {
   //outer div with commenting area and comment viewing
   const commentSection = document.createElement('ul')
   const commentSectionDiv = document.createElement('div')
+  const savedComments = window.localStorage.getItem('comments')
+
+  let split1 = savedComments.split('</li>')
+  console.log(split1)
+  for (let i = 0; i < split1.length; i++){
+    if(split1[i]){
+      let split2 = split1[i].split('<li>')
+      let comment = split2[1]
+      const li = document.createElement('li')
+      li.innerText = comment;
+      commentSection.appendChild(li)
+    }
+  }
+
+  commentSectionDiv.append(commentSection)
+  commentSection.setAttribute('id', 'ul-comments')
 
   commentSectionDiv.setAttribute('class', 'comment-section-div')
   commentSection.setAttribute('id', 'ul-comments')
-  commentSectionDiv.appendChild(commentSection)
+  // commentSectionDiv.appendChild(commentSection)
   bigCommentContainer.append(innerCommentContainer, commentSectionDiv)
 
 //Greatest Div
@@ -109,6 +134,7 @@ window.onload = async () => {
     score++;
     // console.log("score2: " + score)
     scoreP.innerText = `Popularity Score: ${score}`
+    window.localStorage.setItem('score', score)
   });
 
   // DOWN VOTE !
@@ -116,6 +142,7 @@ window.onload = async () => {
   downVoteSelector.addEventListener('click', (e) => {
     score--;
     scoreP.innerText = `Popularity Score: ${score}`;
+    window.localStorage.setItem('score', score)
   })
 
   //Comment Section Functionality
@@ -126,13 +153,17 @@ window.onload = async () => {
     const li = document.createElement('li')
     li.innerText = commentText.value;
     commentSection.appendChild(li)
+    window.localStorage.setItem('comments', commentSection.innerHTML)
     commentText.value = ''
   })
 
   // attempt at image regeneration
   const catButtonSelector = document.querySelector("#cat-button-itself");
 
-  catButtonSelector.addEventListener('click', async (e) => {
+  //store in local storage
+  // storeItems(newImage, score, commentSection)
+
+  async function newCatImage(e){
     e.preventDefault()
     const prevImage = document.querySelector('.image-itself')
     const newCat = document.querySelector('.new-cat-container')
@@ -165,5 +196,21 @@ window.onload = async () => {
     while (commentSection.firstChild) {
       commentSection.removeChild(commentSection.lastChild);
     }
-  });
+  }
+
+  catButtonSelector.addEventListener('click', newCatImage);
+
+  //------------------------------------------------------------//
+
+    //place in local storage
+
+    function restoreItems(){
+      const image = window.localStorage.getItem('image')
+      const score = window.localStorage.getItem('score')
+      const comments = window.localStorage.getItem('comments')
+
+      if(image, score, comments){
+        document.documentElement.className = ``
+      }
+    }
 }
