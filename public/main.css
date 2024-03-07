@@ -86,9 +86,17 @@ h1 {
 #upVoteButton:hover {
   background-color: rgb(122, 204, 122);
 }
+#upVoteButton:active {
+  opacity: 0.5;
+  box-shadow: none;
+}
 
 #downVoteButton:hover {
   background-color: rgb(251, 125, 125);
+}
+#downVoteButton:active {
+  opacity: 0.5;
+  box-shadow: none;
 }
 
 /*  comment section */
@@ -120,11 +128,22 @@ h1 {
   margin: 5px;
   font-family: Rubik;
   padding: 5px 10px;
-  font-size: 14px;
+  font-size: 12px;
   border-radius: 50px;
   background-color: #fcfbe1;
   border: none;
   box-shadow: 2px 2px 3px black;
+  transition-duration: 0.2s;
+}
+
+.inner-comment-container button:hover {
+  background-color: darkorchid;
+  color: white;
+}
+
+.inner-comment-container button:active {
+  opacity: 0.5;
+  box-shadow: none;
 }
 
 .comment-section-div {

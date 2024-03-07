@@ -6,14 +6,23 @@ window.onload = async () => {
   document.body.append(h1Ele)
 
 //API Call to Kitten Picture and creating the div element
+const storedImage = window.localStorage.getItem('image');
+// console.log(storedImage);
+let link;
 
   try {
-    const res = await fetch('https://api.thecatapi.com/v1/images/search?size=small')
-    const data = await res.json();
+    if (storedImage) {
+      link = storedImage;
+    }
+    else {
+      const res = await fetch('https://api.thecatapi.com/v1/images/search?size=small')
+      const data = await res.json();
 
-    console.log(data)
-    const link = data[0].url
-    console.log(link)
+      // console.log(data)
+      link = data[0].url
+      // console.log(link)
+    }
+
 
     const newCat = document.createElement('div')
     const newImage = document.createElement('img')
@@ -22,7 +31,7 @@ window.onload = async () => {
     newImage.src = link
 
     //store image
-    window.localStorage.setItem('image', newImage)
+    window.localStorage.setItem('image', link)
 
     newCat.appendChild(newImage)
     newCat.setAttribute('class', 'new-cat-container')
@@ -91,12 +100,12 @@ window.onload = async () => {
   innerCommentContainer.append(commentTitle, textInput, submitButton)
 
   //outer div with commenting area and comment viewing
-  const commentSection = document.createElement('ul')
-  const commentSectionDiv = document.createElement('div')
-  const savedComments = window.localStorage.getItem('comments')
+  const commentSection = document.createElement('ul');
+  const commentSectionDiv = document.createElement('div');
+  const savedComments = window.localStorage.getItem('comments');
 
-  let split1 = savedComments.split('</li>')
-  console.log(split1)
+  let split1 = savedComments.split('</li>');
+  // console.log(split1);
   for (let i = 0; i < split1.length; i++){
     if(split1[i]){
       let split2 = split1[i].split('<li>')
@@ -112,7 +121,6 @@ window.onload = async () => {
 
   commentSectionDiv.setAttribute('class', 'comment-section-div')
   commentSection.setAttribute('id', 'ul-comments')
-  // commentSectionDiv.appendChild(commentSection)
   bigCommentContainer.append(innerCommentContainer, commentSectionDiv)
 
 //Greatest Div
@@ -126,7 +134,7 @@ window.onload = async () => {
 
   //  UP VOTE !
   const upVoteSelector = document.querySelector("#upVoteButton");
-  console.log(upVoteSelector);
+  // console.log(upVoteSelector);
 
   upVoteSelector.addEventListener('click', (e) => {
     // console.log("hello");
@@ -169,22 +177,36 @@ window.onload = async () => {
     const newCat = document.querySelector('.new-cat-container')
     prevImage.remove(e)
 
-    console.log(newCat)
+    // console.log(newCat)
 
     try {
-          const res = await fetch('https://api.thecatapi.com/v1/images/search?size=small')
-          const data = await res.json();
+        let data;
+          async function fetchData() {
+            const res = await fetch('https://api.thecatapi.com/v1/images/search?size=small')
+            data = await res.json();
+            // console.log(data);
+            console.log(data[0].width);
+            console.log(data[0].height);
+          if (data[0].width > 800 || data[0].height > 800) {
+            console.log("its toooo big")
+            fetchData();
+          } else {
+            // console.log("its just right!")
+            // console.log("sending back data: " + data);
+            // console.log("received data: " + data);
+            const link = data[0].url
+            // console.log(link);
+            window.localStorage.setItem('image', link);
+            const newImage = document.createElement('img')
 
-          console.log(data)
-          const link = data[0].url
-          console.log(link)
+            newImage.setAttribute('class', 'image-itself')
+            newImage.src = link
+            newCat.appendChild(newImage)
+            newCat.setAttribute('class', 'new-cat-container')
+          }
+          }
 
-          const newImage = document.createElement('img')
-
-          newImage.setAttribute('class', 'image-itself')
-          newImage.src = link
-          newCat.appendChild(newImage)
-          newCat.setAttribute('class', 'new-cat-container')
+          await fetchData();
 
         } catch (e) {
           window.alert("Couldn't fetch cat :(")
@@ -196,6 +218,9 @@ window.onload = async () => {
     while (commentSection.firstChild) {
       commentSection.removeChild(commentSection.lastChild);
     }
+    window.localStorage.setItem('comments', commentSection.innerHTML);
+
+    window.localStorage.setItem('score', score = 0);
   }
 
   catButtonSelector.addEventListener('click', newCatImage);
